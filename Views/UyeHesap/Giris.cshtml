@@ -1,0 +1,50 @@
+@model UyeGirisViewModel
+@{
+    ViewData["Title"] = "Üye Girişi";
+    Layout = "_AuthLayout";
+}
+
+@section BrandPanel {
+    <div class="auth-brand-icon"><i class="bi bi-person-check"></i></div>
+    <h2>Tekrar Hoş Geldiniz</h2>
+    <p>Hesabınıza giriş yapın, ödünç geçmişinizi ve üyelik bilgilerinizi görüntüleyin.</p>
+    <ul class="auth-feature-list">
+        <li><i class="bi bi-check2-circle"></i> Ödünç geçmişinizi takip edin</li>
+        <li><i class="bi bi-check2-circle"></i> Güncel kitap kataloğuna göz atın</li>
+        <li><i class="bi bi-check2-circle"></i> Hesap bilgilerinizi yönetin</li>
+    </ul>
+}
+
+<div class="auth-form-header">
+    <div class="auth-icon"><i class="bi bi-person-check"></i></div>
+    <h3>Üye Girişi</h3>
+    <p class="text-muted">Hesabınıza giriş yaparak devam edin.</p>
+</div>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-controller="UyeHesap" asp-action="Giris" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+    <div class="mb-3">
+        <label asp-for="Eposta" class="form-label"></label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input asp-for="Eposta" class="form-control" autofocus />
+        </div>
+        <span asp-validation-for="Eposta" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Sifre" class="form-label"></label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-key"></i></span>
+            <input asp-for="Sifre" class="form-control" />
+        </div>
+        <span asp-validation-for="Sifre" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary w-100 py-2"><i class="bi bi-box-arrow-in-right me-1"></i>Giriş Yap</button>
+</form>
+
+<p class="text-muted small mt-4 mb-0 text-center">
+    Hesabınız yok mu? <a asp-controller="UyeHesap" asp-action="Kayit" class="fw-semibold">Hemen üye olun</a>
+</p>
+<p class="text-muted small mt-2 mb-0 text-center">
+    <a asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-left me-1"></i>Anasayfaya dön</a>
+</p>

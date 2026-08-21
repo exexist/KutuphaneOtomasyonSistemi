@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Kütüphane Otomasyon Sistemi</title>
+    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <span class="brand-icon"><i class="bi bi-book-half"></i></span> Kütüphane Otomasyon Sistemi
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+                    <div class="d-flex flex-wrap gap-2 align-items-center py-2 py-md-0">
+                        @if (User?.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <span class="text-light small me-1 d-none d-md-inline"><i class="bi bi-person-circle me-1"></i>@User.FindFirst("AdSoyad")?.Value</span>
+                            <a class="btn btn-nav-primary btn-sm" asp-controller="Admin" asp-action="Index"><i class="bi bi-speedometer2 me-1"></i>Admin Paneli</a>
+                            <form asp-controller="Hesap" asp-action="Cikis" method="post" class="d-inline m-0">
+                                <button type="submit" class="btn btn-nav-outline btn-sm"><i class="bi bi-box-arrow-right me-1"></i>Çıkış Yap</button>
+                            </form>
+                        }
+                        else if (User?.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Uye"))
+                        {
+                            <span class="text-light small me-1 d-none d-md-inline"><i class="bi bi-person-circle me-1"></i>@User.FindFirst("AdSoyad")?.Value</span>
+                            <a class="btn btn-nav-primary btn-sm" asp-controller="UyeHesap" asp-action="Hesabim"><i class="bi bi-person-badge me-1"></i>Hesabım</a>
+                            <form asp-controller="UyeHesap" asp-action="Cikis" method="post" class="d-inline m-0">
+                                <button type="submit" class="btn btn-nav-outline btn-sm"><i class="bi bi-box-arrow-right me-1"></i>Çıkış Yap</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a class="btn btn-nav-outline btn-sm" asp-controller="UyeHesap" asp-action="Giris"><i class="bi bi-box-arrow-in-right me-1"></i>Üye Girişi</a>
+                            <a class="btn btn-nav-primary btn-sm" asp-controller="UyeHesap" asp-action="Kayit"><i class="bi bi-person-plus me-1"></i>Üye Ol</a>
+                            <a class="btn btn-nav-ghost btn-sm" asp-controller="Hesap" asp-action="Giris"><i class="bi bi-shield-lock me-1"></i>Admin Girişi</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        @if (TempData["Basari"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show shadow-sm anim-fade-in" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>@TempData["Basari"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["Hata"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show shadow-sm anim-fade-in" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["Hata"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        <main role="main" class="pb-5 anim-fade-in">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-muted mt-5">
+        <div class="container py-4 text-center">
+            <div><i class="bi bi-book-half me-1"></i>&copy; @DateTime.Now.Year Kütüphane Otomasyon Sistemi — Tüm hakları saklıdır.</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

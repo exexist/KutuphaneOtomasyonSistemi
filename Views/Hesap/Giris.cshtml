@@ -1,0 +1,49 @@
+@model GirisViewModel
+@{
+    ViewData["Title"] = "Admin Girişi";
+    Layout = "_AuthLayout";
+}
+
+@section BrandPanel {
+    <div class="auth-brand-icon"><i class="bi bi-shield-lock"></i></div>
+    <h2>Yönetim Paneline<br />Hoş Geldiniz</h2>
+    <p>Kitap, kategori, üye ve ödünç işlemlerini tek bir merkezden yönetin.</p>
+    <ul class="auth-feature-list">
+        <li><i class="bi bi-check2-circle"></i> Kitap ve kategori yönetimi</li>
+        <li><i class="bi bi-check2-circle"></i> Üye ve ödünç takibi</li>
+        <li><i class="bi bi-check2-circle"></i> Gecikme uyarıları</li>
+    </ul>
+}
+
+<div class="auth-form-header">
+    <div class="auth-icon"><i class="bi bi-shield-lock"></i></div>
+    <h3>Admin Girişi</h3>
+    <p class="text-muted">Sistem yönetimi için giriş yapın.</p>
+</div>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-controller="Hesap" asp-action="Giris" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+    <div class="mb-3">
+        <label asp-for="KullaniciAdi" class="form-label"></label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input asp-for="KullaniciAdi" class="form-control" autofocus />
+        </div>
+        <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Sifre" class="form-label"></label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-key"></i></span>
+            <input asp-for="Sifre" class="form-control" />
+        </div>
+        <span asp-validation-for="Sifre" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary w-100 py-2"><i class="bi bi-box-arrow-in-right me-1"></i>Giriş Yap</button>
+</form>
+
+
+
+<p class="text-muted small mt-4 mb-0 text-center">
+    <a asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-left me-1"></i>Anasayfaya dön</a>
+</p>

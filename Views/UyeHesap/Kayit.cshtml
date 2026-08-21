@@ -1,0 +1,76 @@
+@model UyeKayitViewModel
+@{
+    ViewData["Title"] = "Üye Ol";
+    Layout = "_AuthLayout";
+}
+
+@section BrandPanel {
+    <div class="auth-brand-icon"><i class="bi bi-person-plus"></i></div>
+    <h2>Ailemize Katılın</h2>
+    <p>Ücretsiz üye olun, kitap ödünç alma ve iade işlemlerinizi kolayca takip edin.</p>
+    <ul class="auth-feature-list">
+        <li><i class="bi bi-check2-circle"></i> Hızlı ve ücretsiz kayıt</li>
+        <li><i class="bi bi-check2-circle"></i> Geniş kitap kataloğuna erişim</li>
+        <li><i class="bi bi-check2-circle"></i> Kişisel ödünç geçmişi</li>
+    </ul>
+}
+
+<div class="auth-form-header">
+    <div class="auth-icon"><i class="bi bi-person-plus"></i></div>
+    <h3>Üye Ol</h3>
+    <p class="text-muted">Ücretsiz üye olarak kitap ödünç işlemlerinden yararlanın.</p>
+</div>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-controller="UyeHesap" asp-action="Kayit" method="post">
+    <div class="mb-3">
+        <label asp-for="AdSoyad" class="form-label"></label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input asp-for="AdSoyad" class="form-control" autofocus />
+        </div>
+        <span asp-validation-for="AdSoyad" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Eposta" class="form-label"></label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input asp-for="Eposta" class="form-control" />
+        </div>
+        <span asp-validation-for="Eposta" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Telefon" class="form-label"></label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+            <input asp-for="Telefon" class="form-control" />
+        </div>
+        <span asp-validation-for="Telefon" class="text-danger"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Sifre" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                <input asp-for="Sifre" class="form-control" />
+            </div>
+            <span asp-validation-for="Sifre" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="SifreTekrar" class="form-label"></label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                <input asp-for="SifreTekrar" class="form-control" />
+            </div>
+            <span asp-validation-for="SifreTekrar" class="text-danger"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary w-100 py-2"><i class="bi bi-person-check me-1"></i>Üye Ol</button>
+</form>
+
+<p class="text-muted small mt-4 mb-0 text-center">
+    Zaten üye misiniz? <a asp-controller="UyeHesap" asp-action="Giris" class="fw-semibold">Giriş yapın</a>
+</p>
+<p class="text-muted small mt-2 mb-0 text-center">
+    <a asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-left me-1"></i>Anasayfaya dön</a>
+</p>

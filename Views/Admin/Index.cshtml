@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Admin Paneli";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-4"><i class="bi bi-house-door me-2"></i>Hoş geldiniz, @User.Identity?.Name</h2>
+
+<div class="row g-3">
+    <div class="col-md-3">
+        <div class="card stat-card accent-primary text-center p-3">
+            <div class="stat-icon mx-auto"><i class="bi bi-journal-bookmark"></i></div>
+            <h2 class="text-primary">@ViewBag.ToplamKitap</h2>
+            <p class="text-muted mb-0">Kitap Türü</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card accent-secondary text-center p-3">
+            <div class="stat-icon mx-auto"><i class="bi bi-tags"></i></div>
+            <h2 class="text-secondary">@ViewBag.ToplamKategori</h2>
+            <p class="text-muted mb-0">Kategori</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card accent-info text-center p-3">
+            <div class="stat-icon mx-auto"><i class="bi bi-people"></i></div>
+            <h2 class="text-info">@ViewBag.ToplamUye</h2>
+            <p class="text-muted mb-0">Üye</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card accent-warning text-center p-3">
+            <div class="stat-icon mx-auto"><i class="bi bi-arrow-left-right"></i></div>
+            <h2 class="text-warning">@ViewBag.AktifOduncSayisi</h2>
+            <p class="text-muted mb-0">Aktif Ödünç</p>
+        </div>
+    </div>
+</div>
+
+@if ((int)ViewBag.GecikenOduncSayisi > 0)
+{
+    <div class="alert alert-warning mt-4 d-flex align-items-center">
+        <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+        <div><b>@ViewBag.GecikenOduncSayisi</b> adet gecikmiş ödünç kaydı bulunuyor.
+        <a asp-controller="Odunc" asp-action="Index" class="fw-semibold">İncelemek için tıklayın <i class="bi bi-arrow-right"></i></a></div>
+    </div>
+}
+
+<div class="mt-4">
+    <h5 class="mb-3 text-muted"><i class="bi bi-lightning-charge me-1"></i>Hızlı İşlemler</h5>
+    <div class="d-flex gap-2 flex-wrap">
+        <a class="btn btn-outline-primary" asp-controller="Kitaplar" asp-action="Ekle"><i class="bi bi-plus-circle me-1"></i>Yeni Kitap</a>
+        <a class="btn btn-outline-secondary" asp-controller="Kategoriler" asp-action="Ekle"><i class="bi bi-plus-circle me-1"></i>Yeni Kategori</a>
+        <a class="btn btn-outline-info" asp-controller="Uyeler" asp-action="Ekle"><i class="bi bi-plus-circle me-1"></i>Yeni Üye</a>
+        <a class="btn btn-outline-success" asp-controller="Odunc" asp-action="Ekle"><i class="bi bi-plus-circle me-1"></i>Yeni Ödünç Kaydı</a>
+    </div>
+</div>

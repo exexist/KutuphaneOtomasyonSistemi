@@ -1,0 +1,32 @@
+@{
+    Layout = "_Layout";
+    var mevcutController = ViewContext.RouteData.Values["controller"]?.ToString();
+    string AktifMi(string controllerAdi) => mevcutController == controllerAdi ? "active" : "";
+}
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="admin-sidebar shadow-sm">
+            <div class="admin-sidebar-title"><i class="bi bi-grid-1x2-fill"></i> Yönetim Menüsü</div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action @AktifMi("Admin")" asp-controller="Admin" asp-action="Index">
+                    <i class="bi bi-speedometer2"></i> Panel Anasayfa
+                </a>
+                <a class="list-group-item list-group-item-action @AktifMi("Kitaplar")" asp-controller="Kitaplar" asp-action="Index">
+                    <i class="bi bi-book"></i> Kitaplar
+                </a>
+                <a class="list-group-item list-group-item-action @AktifMi("Kategoriler")" asp-controller="Kategoriler" asp-action="Index">
+                    <i class="bi bi-tags"></i> Kategoriler
+                </a>
+                <a class="list-group-item list-group-item-action @AktifMi("Uyeler")" asp-controller="Uyeler" asp-action="Index">
+                    <i class="bi bi-people"></i> Üyeler
+                </a>
+                <a class="list-group-item list-group-item-action @AktifMi("Odunc")" asp-controller="Odunc" asp-action="Index">
+                    <i class="bi bi-arrow-left-right"></i> Ödünç İşlemleri
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 anim-fade-in-up">
+        @RenderBody()
+    </div>
+</div>

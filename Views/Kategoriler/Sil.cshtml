@@ -1,0 +1,14 @@
+@model Kategori
+@{
+    ViewData["Title"] = "Kategori Sil";
+    Layout = "_AdminLayout";
+}
+
+<h3><i class="bi bi-trash3 me-2"></i>Kategori Sil</h3>
+<div class="alert alert-warning">
+    <b>@Model.Ad</b> kategorisini silmek istediğinize emin misiniz?
+</div>
+<form asp-action="Sil" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Evet, Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+</form>

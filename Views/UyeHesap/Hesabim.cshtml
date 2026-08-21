@@ -1,0 +1,61 @@
+@model Uye
+@{
+    ViewData["Title"] = "Hesabım";
+    var oduncKayitlari = ViewBag.OduncKayitlari as List<Odunc>;
+}
+
+<div class="card p-4 mb-4">
+    <h3 class="mb-3"><i class="bi bi-person-badge me-2"></i>Hesabım</h3>
+    <div class="row">
+        <div class="col-md-4"><b>Ad Soyad:</b> @Model.AdSoyad</div>
+        <div class="col-md-4"><b>E-posta:</b> @Model.Eposta</div>
+        <div class="col-md-4"><b>Telefon:</b> @(Model.Telefon ?? "-")</div>
+    </div>
+    <div class="mt-2 text-muted small">Üyelik Tarihi: @Model.KayitTarihi.ToString("dd.MM.yyyy")</div>
+</div>
+
+<h4 class="mb-3"><i class="bi bi-clock-history me-2"></i>Ödünç Geçmişim</h4>
+@if (oduncKayitlari == null || !oduncKayitlari.Any())
+{
+    <div class="alert alert-info">Henüz bir ödünç kaydınız bulunmuyor.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped bg-white shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Kitap</th>
+                    <th>Alış Tarihi</th>
+                    <th>Teslim Tarihi</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in oduncKayitlari)
+                {
+                    var gecikmis = !o.IadeEdildiMi && o.TeslimTarihi < DateTime.Now;
+                    <tr>
+                        <td>@(o.Kitap?.Ad ?? "-")</td>
+                        <td>@o.AlisTarihi.ToString("dd.MM.yyyy")</td>
+                        <td>@o.TeslimTarihi.ToString("dd.MM.yyyy")</td>
+                        <td>
+                            @if (o.IadeEdildiMi)
+                            {
+                                <span class="badge bg-success">İade Edildi</span>
+                            }
+                            else if (gecikmis)
+                            {
+                                <span class="badge bg-danger">Gecikti</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Devam Ediyor</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
